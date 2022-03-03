@@ -4,9 +4,9 @@ from telebot import types
 
 curdir = os.curdir
 
-bot = telebot.TeleBot('1621985834:AAF25Dq-yVRsjvzlcZPpvySWcsj58LlLQR0') #токен бота
+bot = telebot.TeleBot('5108669453:AAGuW4xE9QjnzHH27YRb_6xsZ5-NGuqpgjQ') #токен бота
 
-admins = [304746706] #айди админов
+admins = [641892529] #айди админов
 
 phone = '' #номер киви
 
