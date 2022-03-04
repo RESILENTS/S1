@@ -27,17 +27,22 @@ def admin(message):
 @bot.message_handler(content_types=['text'])
 def text(message):
     chat_id = message.from_user.id
-    if message.text == '📥 Получить хайд':
-        inline = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
-        btn = types.KeyboardButton(text='⭐IQOS 2.4+⭐')
-        btn2 = types.KeyboardButton(text='🌟IQOS 3 DUO🌟')
-        btn3 = types.KeyboardButton(text='🔥IQOS 3 Multi🔥')
-        btn4 = types.KeyboardButton(text='🔙 Назад')
-        btn5 = types.KeyboardButton(text='🔝 Главное Меню')
-        inline.add(btn, btn2)
-        inline.add(btn3)
-        inline.add(btn4, btn5)
-        bot.send_message(chat_id, '✨IQOS✨', reply_markup=inline)
+    if message.text == "📩 Получить хайд":
+        global link_idm
+        conn = sqlite3.connect('db.db')
+        cursor = conn.cursor()
+        cursor.execute("select count(*) from links") 
+        result2 = cursor.fetchone()[0]
+        link_idm = message.text
+        msg = bot.send_message(message.chat.id, f'''🔍  <b>Введите ссылку для поиска в базе данных.</b>
+
+⚠️  <b>ВНИМАНИЕ!</b> Если вы отправите ссылку с не актуальным доменом то <b>БОТ</b> не сможет найти запись в базе данных.
+        
+🟢  <b>Актуальные домены:</b>
+ — slivup.cc
+ 
+📊  <b>Сливов в базе данных:</b> {result2}''', parse_mode='HTML')
+        bot.register_next_step_handler(msg, getlinkm)
     elif message.text == 'Рассылка' and chat_id in admins:
         message = bot.send_message(chat_id, '💁🏻‍♀️ Введите *сообщение* для рассылки', parse_mode="Markdown")
         bot.register_next_step_handler(message, add_message)
@@ -59,5 +64,73 @@ def text(message):
             w_file.close()
             with open(curdir + "/users.csv", "r") as file:
                 bot.send_document(chat_id, file)
+                
+def getlinkm(message):
+        global link_coment, link_text, sql, link_id, get_link_new, link_global
+        conn = sqlite3.connect('db.db')
+        cursor = conn.cursor()
+        link_coment = ""
+        link_text = ""
+        link_id = message.text
+        link_global = link_id
+        sql = "SELECT * FROM links WHERE link_id =?"
+        result = cursor.fetchall()
+        for row in cursor.execute(sql, ([link_id])):
+            link_id = list(row)[0]
+            link_coment = list(row)[1]
+            link_text = list(row)[2]
+        if  not link_text: 
+            keyboard = types.InlineKeyboardMarkup()
+            btn1 = types.InlineKeyboardButton(text="➕ Отправить запрос на слив", callback_data="new_link")
+            keyboard.add(btn1)
+            bot.send_message(message.chat.id, f'''❌ <b>ОШИБКА:</b> По вашему запросу <b>"{link_id}"</b> ничего не найдено.
+	    
+Нажмите на кнопку ниже для отправки запроса на слив вашего запроса.''', reply_markup=keyboard, parse_mode='HTML')
+        else:
+            keyboard = types.InlineKeyboardMarkup()
+            btn1 = types.InlineKeyboardButton(text="❌ Удалить запрос", callback_data="get_close")
+            keyboard.add(btn1)
+            bot.send_message(message.chat.id, f'''🔍  <b>Результат по вашему запросу:</b>
+
+🔗  <b>Ссылка вашего запроса: </b>
+ — {link_id}
+ 
+💭  <b>Комментарий к запросу:</b>
+{link_text}
+
+🔐  <b>Скрытое содержимое: </b>
+{link_coment}
+
+''',reply_markup=keyboard, parse_mode='HTML')
+
+def add1(message):
+        global m1
+        m1 = message.text
+        msg = bot.send_message(message.chat.id, '➕ Введите коментарии к посту.',parse_mode='HTML')
+        bot.register_next_step_handler(msg, add2)
+
+def add2(message):
+        global m2
+        m2 = message.text
+        msg = bot.send_message(message.chat.id, '➕ Введите скрытое содержимое.',parse_mode='HTML')
+        bot.register_next_step_handler(msg, add3)
+
+def add3(message):
+        global m3
+        m3 = message.text
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text='✅ Опубликовать пост',callback_data=f'принятьзаявку_{message.chat.id}'))
+        bot.send_message(message.chat.id, f'''Предпросмотр публикации:
+
+◾ Ссылка: {m1}
+◾ Содержимое скрытого текста: {m3}
+
+◾ Коментарии к публикации:
+{m2}''',parse_mode='HTML',reply_markup=keyboard)
+
+def db_table_val(link_id: str, link_coment: str, link_text: str):
+    params = (link_id, link_coment, link_text)
+    cursor.execute(f'''INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')''')
+    conn.commit()
 
 bot.polling()
