@@ -48,10 +48,15 @@ def text(message):
         bot.register_next_step_handler(message, add_message)
     elif message.text == 'Кол-во пользователей' and chat_id in admins:
         with sqlite3.connect('users.db') as conn:
+            conn = sqlite3.connect('db.db')
+            cursor = conn.cursor()
+            cursor.execute("select count(*) from links") 
+            result2 = cursor.fetchone()[0]
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
-            bot.send_message(message.from_user.id, 'Количество пользователей: ' + str(len(row)))
+            bot.send_message(message.from_user.id, f'''📊  <b>Сливов в базе данных:</b> {result2}
+👥  <b>Количество пользователей:</b> ''' + str(len(row)))
     elif message.text == 'Добавить в БД' and chat_id in admins:
         msg = bot.send_message(chat_id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add1)
@@ -105,6 +110,17 @@ def getlinkm(message):
 {link_coment}
 
 ''',reply_markup=keyboard, parse_mode='HTML')
+
+def search1(message):
+        global link_id
+        link_id = message.text
+        msg = bot.send_message(message.chat.id, f'''🔍  <b>Введите ссылку для поиска в базе данных.</b>
+
+⚠️  <b>ВНИМАНИЕ!</b> Если вы отправите ссылку с не актуальным доменом то <b>БОТ</b> не сможет найти запись в базе данных.
+        
+🟢  <b>Актуальные домены:</b>
+ — slivup.cc''', parse_mode='HTML')
+        bot.register_next_step_handler(msg, add2)
 
 def add1(message):
         global m1
