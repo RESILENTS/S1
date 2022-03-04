@@ -5,7 +5,7 @@ from  keyboard import *
 def start(message):
     chat_id = message.from_user.id
     username = message.from_user.username
-    with sqlite3.connect('users.db') as conn:
+    with sqlite3.connect('db.db') as conn:
         cur = conn.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS user(username TEXT, user_id INTEGER);""")
         cur.execute("SELECT * FROM user WHERE `user_id` = '{}'".format(chat_id))
@@ -13,7 +13,7 @@ def start(message):
         if len(row) == 0:
             cur.execute("INSERT INTO `user` (`username`, `user_id`) VALUES(?,?)",
                         (username, chat_id,))
-    text = '<b>SORGENY</b> — Я помогу тебе получить скрытую информацию с разных интернет ресурсов.\n\nУ меня есть база данных слитых хайдов с разных интернет площадок. Более подробнее о боте вы сможете узнать в разделе информация.'
+    text = '<b>SORGENY</b> — Я помогу тебе получить бесплатно курсы, мануалы, инфопродукты с разных форумах.\n\nУ меня есть база данных слитых хайдов с разных интернет площадок. Более подробнее о боте вы сможете узнать в разделе информация.'
     img = open ('welc.webp', 'rb')
     bot.send_photo(chat_id, img, caption=text, reply_markup=main_keyboard(), parse_mode='html')
 
@@ -169,5 +169,9 @@ def podcategors(call):
         link_coment = {m3}
         link_text = {m2}
         db_table_val(link_id=link_id, link_coment=link_coment, link_text=link_text)
+
+    if call.data == 'new_link':
+        bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
+        bot.send_message(call.message.chat.id, '📩 На данный момент все запросы на слив принимаем в ручную.\n\nОтправте свои ссылки в ЛС по контактам ниже:\n👥 @resilents',parse_mode='HTML')
 
 bot.polling()
