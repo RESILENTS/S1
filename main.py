@@ -52,6 +52,9 @@ def text(message):
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
             bot.send_message(message.from_user.id, 'Количество пользователей: ' + str(len(row)))
+    elif message.text == 'Добавить в БД' and chat_id in admins:
+        msg = bot.send_message(call.message.chat.id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
+        bot.register_next_step_handler(msg, add1)
     elif message.text == 'Список всех пользователей' and chat_id in admins:
         with sqlite3.connect('users.db') as conn:
             cur = conn.cursor()
@@ -132,5 +135,16 @@ def db_table_val(link_id: str, link_coment: str, link_text: str):
     params = (link_id, link_coment, link_text)
     cursor.execute(f'''INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')''')
     conn.commit()
+
+@bot.callback_query_handler(func=lambda call:True)
+def podcategors(call):
+    if call.data == 'get_close':
+        bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
+	
+    if call.data[:14] == 'принятьзаявку_':
+        idasd = call.data[14:]
+        bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
+        main = telebot.types.ReplyKeyboardMarkup(True)
+        bot.send_message(idasd,reply_markup=main, text='✅ Успешно!')
 
 bot.polling()
