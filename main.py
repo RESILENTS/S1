@@ -13,7 +13,9 @@ def start(message):
         if len(row) == 0:
             cur.execute("INSERT INTO `user` (`username`, `user_id`) VALUES(?,?)",
                         (username, chat_id,))
-    bot.send_message(chat_id, f'Добро пожаловать!', reply_markup=main_keyboard())
+    text = '<b>SORGENY</b> — Я помогу тебе получить скрытую информацию с разных интернет ресурсов.\n\nУ меня есть база данных слитых хайдов с разных интернет площадок. Более подробнее о боте вы сможете узнать в разделе информация.'
+    img = open ('welc.webp', 'rb')
+    bot.send_photo(chat_id, img, caption=text, reply_markup=main_keyboard(), parse_mode='html')
 
 @bot.message_handler(commands=['admin'])
 def admin(message):
