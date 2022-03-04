@@ -27,7 +27,7 @@ def admin(message):
 @bot.message_handler(content_types=['text'])
 def text(message):
     chat_id = message.from_user.id
-    if message.text == "📩 Получить хайд":
+    if message.text == "📥 Получить хайд":
         global link_idm
         conn = sqlite3.connect('db.db')
         cursor = conn.cursor()
