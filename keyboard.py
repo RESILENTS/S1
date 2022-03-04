@@ -13,7 +13,7 @@ def main_keyboard():
 def admin_keyboard():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     btn = types.KeyboardButton(text='Рассылка')
-    btn1 = types.KeyboardButton(text='Все пользователей')
+    btn1 = types.KeyboardButton(text='Добавить в БД')
     btn2 = types.KeyboardButton(text='Кол-во пользователей')
     btn3 = types.KeyboardButton(text='Все пользователей')
     markup.add(btn, btn1)
