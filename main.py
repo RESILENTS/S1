@@ -48,13 +48,13 @@ def text(message):
         bot.register_next_step_handler(message, add_message)
     elif message.text == '📊 Статистика' and chat_id in admins:
         with sqlite3.connect('users.db') as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM user")
+            row = cur.fetchall()
             conn = sqlite3.connect('db.db')
             cursor = conn.cursor()
             cursor.execute("select count(*) from links") 
             result2 = cursor.fetchone()[0]
-            cur = conn.cursor()
-            cur.execute("SELECT * FROM user")
-            row = cur.fetchall()
             bot.send_message(message.from_user.id, f'''📊  <b>Сливов в базе данных:</b> {result2}
 👥  <b>Количество пользователей:</b> ''' + str(len(row)))
     elif message.text == 'Добавить в БД' and chat_id in admins:
