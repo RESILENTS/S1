@@ -2,6 +2,9 @@ import telebot, sqlite3, random, string, csv, os
 from SimpleQIWI import *
 from telebot import types
 
+conn = sqlite3.connect('db.db', check_same_thread=False)
+cursor = conn.cursor()
+
 curdir = os.curdir
 
 bot = telebot.TeleBot('5108669453:AAGuW4xE9QjnzHH27YRb_6xsZ5-NGuqpgjQ') #токен бота
