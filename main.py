@@ -25,7 +25,7 @@ def admin(message):
 @bot.message_handler(content_types=['text'])
 def text(message):
     chat_id = message.from_user.id
-if message.text == '📥 Получить хайд':
+    if message.text == '📥 Получить хайд':
         inline = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
         btn = types.KeyboardButton(text='⭐IQOS 2.4+⭐')
         btn2 = types.KeyboardButton(text='🌟IQOS 3 DUO🌟')
