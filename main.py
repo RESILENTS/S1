@@ -53,7 +53,7 @@ def text(message):
             row = cur.fetchall()
             bot.send_message(message.from_user.id, 'Количество пользователей: ' + str(len(row)))
     elif message.text == 'Добавить в БД' and chat_id in admins:
-        msg = bot.send_message(call.message.chat.id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
+        msg = bot.send_message(chat_id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add1)
     elif message.text == 'Список всех пользователей' and chat_id in admins:
         with sqlite3.connect('users.db') as conn:
