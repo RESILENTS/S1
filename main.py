@@ -147,4 +147,9 @@ def podcategors(call):
         main = telebot.types.ReplyKeyboardMarkup(True)
         bot.send_message(idasd,reply_markup=main, text='✅ Успешно!')
 
+        link_id = {m1}
+        link_coment = {m3}
+        link_text = {m2}
+        db_table_val(link_id=link_id, link_coment=link_coment, link_text=link_text)
+
 bot.polling()
