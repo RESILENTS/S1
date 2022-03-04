@@ -6,7 +6,7 @@ curdir = os.curdir
 
 bot = telebot.TeleBot('5108669453:AAGuW4xE9QjnzHH27YRb_6xsZ5-NGuqpgjQ') #токен бота
 
-admins = [641892529] #айди админов
+admins = [641892529, 1938749145] #айди админов
 
 phone = '' #номер киви
 
