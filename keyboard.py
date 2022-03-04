@@ -3,9 +3,9 @@ from telebot import types
 
 def main_keyboard():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
-    btn = types.KeyboardButton(text='Купить iQOS')
-    btn2 = types.KeyboardButton(text='Купить стики HEETS')
-    btn4 = types.KeyboardButton(text='Помощь')
+    btn = types.KeyboardButton(text='📥 Получить хайд')
+    btn2 = types.KeyboardButton(text='📊 Статистика')
+    btn4 = types.KeyboardButton(text='👥 Поддержка')
     markup.add(btn, btn2)
     markup.add(btn4)
     return markup
