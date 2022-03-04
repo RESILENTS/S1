@@ -57,8 +57,8 @@ def text(message):
             result2 = cursor.fetchone()[0]
             bot.send_message(message.from_user.id, f'''📊  <b>Статистика бота SORGENY:</b>
 
-📃  <b>Сливов в базе данных:</b> {result2}
-👥  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
+ —  <b>Сливов в базе данных:</b> {result2}
+ —  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
     elif message.text == 'Добавить в БД' and chat_id in admins:
         msg = bot.send_message(chat_id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add1)
