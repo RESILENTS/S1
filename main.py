@@ -13,7 +13,7 @@ def start(message):
         if len(row) == 0:
             cur.execute("INSERT INTO `user` (`username`, `user_id`) VALUES(?,?)",
                         (username, chat_id,))
-    text = '<b>SORGENY</b> — Я помогу тебе получить бесплатно курсы, мануалы, инфопродукты с разных форумах.\n\nУ меня есть база данных слитых хайдов с разных интернет площадок. Более подробнее о боте вы сможете узнать в разделе информация.'
+    text = '<b>SORGENY</b> — Я помогу тебе получить бесплатно курсы, мануалы, инфопродукты с разных форумах. \n\nУ меня есть база данных слитых хайдов с разных интернет площадок. Более подробнее о боте вы сможете узнать в разделе информация.'
     img = open ('welc.webp', 'rb')
     bot.send_photo(chat_id, img, caption=text, reply_markup=main_keyboard(), parse_mode='html')
 
