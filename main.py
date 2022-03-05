@@ -42,7 +42,7 @@ def text(message):
  —  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
 
     if message.text == "📥 Получить хайд":
-        global link_idm, result2
+        global link_idm
         conn = sqlite3.connect('db.db')
         cursor = conn.cursor()
         cursor.execute("select count(*) from links") 
