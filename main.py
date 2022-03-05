@@ -28,7 +28,7 @@ def admin(message):
 def text(message):
     chat_id = message.from_user.id
     if message.text == "📥 Получить хайд":
-        global link_idm
+        global link_idm, result2
         conn = sqlite3.connect('db.db')
         cursor = conn.cursor()
         cursor.execute("select count(*) from links") 
@@ -51,10 +51,6 @@ def text(message):
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
-            conn = sqlite3.connect('db.db')
-            cursor = conn.cursor()
-            cursor.execute("select count(*) from links") 
-            result2 = cursor.fetchone()[0]
             bot.send_message(message.from_user.id, f'''📊  <b>Статистика бота SORGENY:</b>
 
  —  <b>Сливов в базе данных:</b> {result2}
