@@ -2,7 +2,7 @@ import telebot, sqlite3, random, string, csv, os
 from SimpleQIWI import *
 from telebot import types
 
-conn = sqlite3.connect('db.db', check_same_thread=False)
+conn = sqlite3.connect('users.db', check_same_thread=False)
 cursor = conn.cursor()
 
 curdir = os.curdir
