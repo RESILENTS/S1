@@ -64,7 +64,7 @@ def text(message):
         bot.register_next_step_handler(msg, add1)
 
     elif message.text == '👥 Поддержка':
-        bot.send_message(call.message.chat.id, '📩 На данный момент все запросы на слив принимаем в ручную.\n\nОтправте свои ссылки в ЛС по контактам ниже:\n👥 @resilents',parse_mode='HTML')
+        bot.send_message(message.chat.id, '📩 На данный момент все запросы на слив принимаем в ручную.\n\nОтправте свои ссылки в ЛС по контактам ниже:\n👥 @resilents',parse_mode='HTML')
 
     elif message.text == 'Список всех пользователей' and chat_id in admins:
         with sqlite3.connect('users.db') as conn:
