@@ -46,7 +46,7 @@ def text(message):
     elif message.text == 'Рассылка' and chat_id in admins:
         message = bot.send_message(chat_id, '💁🏻‍♀️ Введите *сообщение* для рассылки', parse_mode="Markdown")
         bot.register_next_step_handler(message, add_message)
-    elif message.text == '📊 Статистика' and chat_id in admins:
+    elif message.text == '📊 Статистика':
         with sqlite3.connect('users.db') as conn:
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
