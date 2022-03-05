@@ -48,6 +48,7 @@ def text(message):
         bot.register_next_step_handler(message, add_message)
     elif message.text == '📊 Статистика':
         with sqlite3.connect('users.db') as conn:
+            global result2
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
