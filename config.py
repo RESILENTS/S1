@@ -33,7 +33,7 @@ def add_message(message):
 
             for row in rows:
                 try:
-                    bot.send_message(row, message.text)
+                    bot.send_message(row, message.text, parse_mode='HTML')
                 except Exception as e:
                     print(e)
                     continue
