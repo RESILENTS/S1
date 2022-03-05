@@ -27,6 +27,20 @@ def admin(message):
 @bot.message_handler(content_types=['text'])
 def text(message):
     chat_id = message.from_user.id
+    if message.text == '📊 Статистика':
+        with sqlite3.connect('users.db') as conn:
+            cur = conn.cursor()
+            cur.execute("SELECT * FROM user")
+            row = cur.fetchall()
+            conn = sqlite3.connect('db.db')
+            cursor = conn.cursor()
+            cursor.execute("select count(*) from links") 
+            result2 = cursor.fetchone()[0]
+            bot.send_message(message.chat.id, f'''📊  <b>Статистика бота SORGENY:</b>
+
+ —  <b>Сливов в базе данных:</b> {result2}
+ —  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
+
     if message.text == "📥 Получить хайд":
         global link_idm, result2
         conn = sqlite3.connect('db.db')
@@ -46,16 +60,7 @@ def text(message):
     elif message.text == 'Рассылка' and chat_id in admins:
         message = bot.send_message(chat_id, '💁🏻‍♀️ Введите *сообщение* для рассылки', parse_mode="Markdown")
         bot.register_next_step_handler(message, add_message)
-    elif message.text == '📊 Статистика':
-        with sqlite3.connect('users.db') as conn:
-            global result2
-            cur = conn.cursor()
-            cur.execute("SELECT * FROM user")
-            row = cur.fetchall()
-            bot.send_message(message.from_user.id, f'''📊  <b>Статистика бота SORGENY:</b>
 
- —  <b>Сливов в базе данных:</b> {result2}
- —  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
     elif message.text == 'Добавить в БД' and chat_id in admins:
         msg = bot.send_message(chat_id, '➕ Введите главную ссылку.\n\n Внимание! По этой ссылке будет производится поиск в базе данных.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add1)
