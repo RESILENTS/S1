@@ -150,7 +150,7 @@ def db_table_val(link_id: str, link_coment: str, link_text: str):
     conn = sqlite3.connect('db1.db')
     cursor = conn.cursor()
     params = (link_id, link_coment, link_text)
-    cursor.execute("INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')")
+    cursor.execute("INSERT INTO 'links' (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')")
     conn.commit()
 
 @bot.callback_query_handler(func=lambda call:True)
