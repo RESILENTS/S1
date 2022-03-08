@@ -2,6 +2,8 @@ import telebot, sqlite3, random, string, csv, os
 from SimpleQIWI import *
 from telebot import types
 
+now = datetime.datetime.now()
+
 conn = sqlite3.connect('db1.db', check_same_thread=False)
 cursor = conn.cursor()
 
