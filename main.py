@@ -67,19 +67,6 @@ def text(message):
 
     elif message.text == '👥 Поддержка':
         bot.send_message(message.chat.id, '📩 На данный момент все запросы на слив принимаем в ручную.\n\nОтправте свои ссылки в ЛС по контактам ниже:\n👥 @sorgeny_support',parse_mode='HTML')
-
-    elif message.text == 'Список всех пользователей' and chat_id in admins:
-        with sqlite3.connect('users.db') as conn:
-            cur = conn.cursor()
-            cur.execute("SELECT * from `user`")
-            row = cur.fetchall()
-            w_file = open("users.csv", mode="w", encoding='utf-8')
-            file_writer = csv.writer(w_file, delimiter=",", lineterminator="\r")
-            for rows in row:
-                file_writer.writerow(rows)
-            w_file.close()
-            with open(curdir + "/users.csv", "r") as file:
-                bot.send_document(chat_id, file)
                 
 def getlinkm(message):
         global link_coment, link_text, sql, link_id, get_link_new, link_global
@@ -157,7 +144,7 @@ def add3(message):
 
 def db_table_val(link_id: str, link_coment: str, link_text: str):
     params = (link_id, link_coment, link_text)
-    cursor.execute(f'''INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')''')
+    cursor.execute("INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')")
     conn.commit()
 
 @bot.callback_query_handler(func=lambda call:True)
