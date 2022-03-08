@@ -5,7 +5,7 @@ from  keyboard import *
 def start(message):
     chat_id = message.from_user.id
     username = message.from_user.username
-    with sqlite3.connect('users.db') as conn:
+    with sqlite3.connect('db1.db') as conn:
         cur = conn.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS user(username TEXT, user_id INTEGER);""")
         cur.execute("SELECT * FROM user WHERE `user_id` = '{}'".format(chat_id))
@@ -28,14 +28,13 @@ def admin(message):
 def text(message):
     chat_id = message.from_user.id
     if message.text == '📊 Статистика':
-        with sqlite3.connect('users1.db') as conn:
+        with sqlite3.connect('db1.db') as conn:
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
-            conn = sqlite3.connect('db1.db')
-            cursor = conn.cursor()
+            cur = conn.cursor()
             cursor.execute("select count(*) from links") 
-            result2 = cursor.fetchone()[0]
+            cur = cursor.fetchone()[0]
             bot.send_message(message.chat.id, f'''📊  <b>Статистика бота SORGENY:</b>
 
  —  <b>Сливов в базе данных:</b> {result2}
