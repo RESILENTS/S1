@@ -32,12 +32,15 @@ def text(message):
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
+	
             cur = conn.cursor()
-            cursor.execute("select count(*) from links") 
-            cur = cursor.fetchone()[0]
+            cur.execute("SELECT * FROM links")
+            row2 = cur.fetchall()
+            linksindb = str(len(row2))
+		
             bot.send_message(message.chat.id, f'''📊  <b>Статистика бота SORGENY:</b>
 
- —  <b>Сливов в базе данных:</b> {result2}
+ —  <b>Сливов в базе данных:</b> {linksindb}
  —  <b>Количество пользователей:</b> ''' + str(len(row)), parse_mode='HTML')
 
     if message.text == "📥 Получить хайд":
