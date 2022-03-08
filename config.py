@@ -7,7 +7,8 @@ cursor = conn.cursor()
 
 curdir = os.curdir
 
-bot = telebot.TeleBot('5108669453:AAGuW4xE9QjnzHH27YRb_6xsZ5-NGuqpgjQ') #токен бота
+bot = telebot.TeleBot('5298338850:AAHKVHFUJrFCTJ3qmNrWDK31KgFiYU91YIg') #токен бота
+channel_id = -1001276861998
 
 admins = [641892529, 1938749145] #айди админов
 
