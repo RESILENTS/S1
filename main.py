@@ -147,6 +147,7 @@ def add3(message):
 {m2}''',parse_mode='HTML',reply_markup=keyboard)
 
 def db_table_val(link_id: str, link_coment: str, link_text: str):
+try:
     conn = sqlite3.connect('db1.db')
     cursor = conn.cursor()
     params = (link_id, link_coment, link_text)
