@@ -28,7 +28,7 @@ def admin(message):
 def text(message):
     chat_id = message.from_user.id
     if message.text == '📊 Статистика':
-        with sqlite3.connect('users.db') as conn:
+        with sqlite3.connect('users1.db') as conn:
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
