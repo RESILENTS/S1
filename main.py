@@ -148,11 +148,6 @@ def db_table_val(link_id: str, link_coment: str, link_text: str):
     params = (link_id, link_coment, link_text)
     cursor.execute("INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')")
     conn.commit()
-    bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
-
-🕔 *Время слива:* [%d-%m-%Y %H:%M]
-🌐 *Продажник:* {link_text}
-🔗 *URL запроса:* {link_id}'''), parse_mode='Markdown')
 
 @bot.callback_query_handler(func=lambda call:True)
 def podcategors(call):
@@ -169,6 +164,11 @@ def podcategors(call):
         link_coment = {m3}
         link_text = {m2}
         db_table_val(link_id=link_id, link_coment=link_coment, link_text=link_text)
+        bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
+
+🕔 *Время слива:* [%d-%m-%Y %H:%M]
+🌐 *Продажник:* {link_text}
+🔗 *URL запроса:* {link_id}'''), parse_mode='Markdown')
 
     if call.data == 'new_link':
         bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
