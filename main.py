@@ -32,7 +32,7 @@ def text(message):
             cur = conn.cursor()
             cur.execute("SELECT * FROM user")
             row = cur.fetchall()
-            conn = sqlite3.connect('db.db')
+            conn = sqlite3.connect('db1.db')
             cursor = conn.cursor()
             cursor.execute("select count(*) from links") 
             result2 = cursor.fetchone()[0]
@@ -43,7 +43,7 @@ def text(message):
 
     if message.text == "📥 Получить хайд":
         global link_idm
-        conn = sqlite3.connect('db.db')
+        conn = sqlite3.connect('db1.db')
         cursor = conn.cursor()
         cursor.execute("select count(*) from links") 
         result2 = cursor.fetchone()[0]
@@ -83,7 +83,7 @@ def text(message):
                 
 def getlinkm(message):
         global link_coment, link_text, sql, link_id, get_link_new, link_global
-        conn = sqlite3.connect('db.db')
+        conn = sqlite3.connect('db1.db')
         cursor = conn.cursor()
         link_coment = ""
         link_text = ""
