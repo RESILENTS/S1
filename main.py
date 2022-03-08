@@ -148,6 +148,11 @@ def db_table_val(link_id: str, link_coment: str, link_text: str):
     params = (link_id, link_coment, link_text)
     cursor.execute("INSERT INTO links (link_id, link_coment, link_text) VALUES ('{m1}', '{m3}', '{m2}')")
     conn.commit()
+    bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
+
+🕔 *Время слива:* [%d-%m-%Y %H:%M]
+🌐 *Продажник:* {m3}
+🔗 *URL запроса:* {m1}'''), parse_mode='Markdown')
 
 @bot.callback_query_handler(func=lambda call:True)
 def podcategors(call):
@@ -159,11 +164,6 @@ def podcategors(call):
         bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
         main = telebot.types.ReplyKeyboardMarkup(True)
         bot.send_message(idasd,reply_markup=main, text='✅ Успешно!')
-        bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
-
-🕔 *Время слива:* [%d-%m-%Y %H:%M]
-🌐 *Продажник:* {m3}
-🔗 *URL запроса:* {m1}'''), parse_mode='Markdown')
 
         link_id = {m1}
         link_coment = {m3}
