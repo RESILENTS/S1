@@ -120,14 +120,16 @@ def search1(message):
         bot.register_next_step_handler(msg, add2)
 
 def add1(message):
-        global m1
+        global m1, chaturlid
         m1 = message.text
+        chaturlid = message.text
         msg = bot.send_message(message.chat.id, '➕ Введите коментарии к посту.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add2)
 
 def add2(message):
-        global m2
+        global m2, prodajnik
         m2 = message.text
+        prodajnik = message.text
         msg = bot.send_message(message.chat.id, '➕ Введите скрытое содержимое.',parse_mode='HTML')
         bot.register_next_step_handler(msg, add3)
 
@@ -167,8 +169,8 @@ def podcategors(call):
         bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
 
 🕔 *Время слива:* [%d-%m-%Y %H:%M]
-🌐 *Продажник:* {link_text}
-🔗 *URL запроса:* {link_id}'''), parse_mode='Markdown')
+🌐 *Продажник:* {chaturlid}
+🔗 *URL запроса:* {prodajnik}'''), parse_mode='Markdown')
 
     if call.data == 'new_link':
         bot.delete_message(chat_id=call.message.chat.id,message_id=call.message.message_id)
