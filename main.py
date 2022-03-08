@@ -151,8 +151,8 @@ def db_table_val(link_id: str, link_coment: str, link_text: str):
     bot.send_message(channel_id, now.strftime(f'''📢 *SORGENY:* Опубликован новый слив.
 
 🕔 *Время слива:* [%d-%m-%Y %H:%M]
-🌐 *Продажник:* {m3}
-🔗 *URL запроса:* {m1}'''), parse_mode='Markdown')
+🌐 *Продажник:* {link_text}
+🔗 *URL запроса:* {link_id}'''), parse_mode='Markdown')
 
 @bot.callback_query_handler(func=lambda call:True)
 def podcategors(call):
